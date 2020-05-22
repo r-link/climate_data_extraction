@@ -21,6 +21,10 @@ source("R/dirtree.R")
 # reference https://www.nature.com/articles/s41597-020-0453-3
 
 # read downloaded raster file with cruts::cruts2raster
-PET <- cruts2raster("CRUTSdata/cru_ts4.04.1901.2019.pet.dat.gz")
+PET <- cruts2raster("CRUTSdata/cru_ts4.04.1901.2019.pet.dat.nc",
+                    timeRange = c("2000-01-01", "2010-01-01"))
+# (note that errors can arise when no time range is given!)
 
-# then extract using raster::extract() etc. and filter the results accordingly
+plot(PET)
+# this raster stack can be used to extract observations for samples using 
+# raster::extract() etc.
