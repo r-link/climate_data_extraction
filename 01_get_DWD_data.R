@@ -43,8 +43,8 @@ str_subset(gridIndex, "monthly") %>%
   str_subset("01_Jan") %>% 
   dirtree(level = 4, max_files = Inf)
 
-# as a first trial, we might want to get all monthly precipitations and temperatures
-# from 2010 onwards
+# as a first trial, we might want to get all monthly precipitation, PET and temperature
+# grids from 2010 onwards
 prec <- str_subset(gridIndex, "monthly") %>% 
   str_subset("precipitation") %>% 
   str_subset("_201|_202")
@@ -53,13 +53,19 @@ temp <- str_subset(gridIndex, "monthly") %>%
   str_subset("air_temp_mean") %>% 
   str_subset("_201|_202")
 
+PET <- str_subset(gridIndex, "monthly") %>% 
+  str_subset("evapo_p") %>% 
+  str_subset("_201|_202")
+
 # like this...
 dirtree(prec, level = 4, max_files = Inf)
 dirtree(temp, level = 4, max_files = Inf)
+dirtree(PET, level = 4, max_files = Inf)
 
 # 3. Download precipitation and temperature rasters ---------------------------
 precfiles <- dataDWD(prec, base = gridbase, joinbf = TRUE)
 tempfiles <- dataDWD(temp, base = gridbase, joinbf = TRUE)
+petfiles  <- dataDWD(PET,  base = gridbase, joinbf = TRUE)
 
 # The files are now loaded on the hard disk and can be stacked and used to extract
 # observations for plot coordinates. Or you can load them in a new script with readDWD()
